@@ -89,6 +89,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.4.0-alpha03")
 
+    //USB Serializer
+    implementation("com.github.mik3y:usb-serial-for-android:3.4.6")
+
     //Coil
     implementation("io.coil-kt:coil-compose:2.2.2")
 
