@@ -45,6 +45,7 @@ fun UsbDashboardScreen(
      *  HD camera
      *  PureThermal // one of the cameras
      *  USB 2.0 Camera // one of the cameras
+     *
      */
     LaunchedEffect(key1 = true) {
         launcher.launch(android.Manifest.permission.CAMERA)
@@ -52,6 +53,10 @@ fun UsbDashboardScreen(
         val usbManager = context.getSystemService(Context.USB_SERVICE) as UsbManager
         val filter = IntentFilter(USB_PERMISSION)
         registerReceiver(context, UsbBroadcastReceiver(), filter, RECEIVER_NOT_EXPORTED)
+
+        //For each device I wrote all of the interfaces and endpoints with the results of the
+        // 'bulkTransfer()' method
+
         /* total interfaces : 1
        interface 0:
        endpoint 0 - bulkTransfer of -1
@@ -61,7 +66,6 @@ fun UsbDashboardScreen(
             val name = device.productName ?: return@LaunchedEffect
             name.contains("HD camera")
         } ?: return@LaunchedEffect
-        Log.d("defaultAppDebuger", "interface count for hdCamera: ${hdCamera.interfaceCount}")
         /* total interfaces : 1
         interface 0:
         bulkTransfer of 512 with endpoint 3
@@ -73,7 +77,6 @@ fun UsbDashboardScreen(
             val name = device.productName ?: return@LaunchedEffect
             name.contains("AX88179A")
         } ?: return@LaunchedEffect
-        Log.d("defaultAppDebuger", "interface count for aX88179A: ${aX88179A.interfaceCount}")
         /* total interfaces : 4
        interface 0:
        endpoint 0 - bulkTransfer of -1
@@ -85,7 +88,6 @@ fun UsbDashboardScreen(
             val name = device.productName ?: return@LaunchedEffect
             name.contains("PureThermal")
         } ?: return@LaunchedEffect
-        Log.d("defaultAppDebuger", "interface count for pureThermal: ${pureThermal.interfaceCount}")
         /* total interfaces : 5
         interface 0:
         endpoint 0 - bulkTransfer of -1
@@ -99,7 +101,6 @@ fun UsbDashboardScreen(
             val name = device.productName ?: return@LaunchedEffect
             name.contains("USB 2.0 Camera")
         } ?: return@LaunchedEffect
-        Log.d("defaultAppDebuger", "interface count for usbCamera: ${usbCamera.interfaceCount}")
         val permissionIntent = PendingIntent.getBroadcast(
             context,
             0, Intent(USB_PERMISSION),

@@ -29,18 +29,13 @@ fun Camera2ApiDashboardScreen(
 
     LaunchedEffect(key1 = true) {
         val hasSystemFeature = context.packageManager.hasSystemFeature(FEATURE_CAMERA_EXTERNAL)
-        Log.d("defaultAppDebuger", "hasSystsemFeature: $hasSystemFeature")
+        // hasSystemFeature returns false, means that we can't use Camera2 API
         val cameraManager: CameraManager = context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
         cameraManager.registerAvailabilityCallback(object : CameraManager.AvailabilityCallback() {
 
             override fun onCameraAvailable(cameraId: String) {
                 super.onCameraAvailable(cameraId)
-                Log.d("defaultAppDebuger", "onCameraAvailable: $cameraId")
-            }
-
-            override fun onPhysicalCameraAvailable(cameraId: String, physicalCameraId: String) {
-                super.onPhysicalCameraAvailable(cameraId, physicalCameraId)
-                Log.d("defaultAppDebuger", "onPhysicalCameraAvailable: $cameraId $physicalCameraId")
+                //Always returns 0 and 1, regardless if the external cameras are connected or not
             }
         }, null)
     }
